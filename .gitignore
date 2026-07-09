@@ -1,0 +1,33 @@
+# 密钥与凭证
+.env
+*.password
+*.secret
+*.key
+*.pem
+*.p12
+
+# Terraform 状态
+terraform.tfstate
+terraform.tfstate.backup
+.terraform/
+*.tfstate
+*.tfstate.backup
+.terraform.lock.hcl
+
+# Drupal 敏感文件
+sites/default/settings.php
+sites/default/files/
+
+# 编辑器
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Terraform variables (contains secrets)
+terraform.tfvars
+*.tfvars
+
+# Terraform backend credentials
+backend.hcl
+sites/default/settings.php

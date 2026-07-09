@@ -1,0 +1,25 @@
+services:
+  drupal:
+    image: ghcr.io/seek-key-ltd/drupal-redis:latest
+    container_name: drupal
+    restart: unless-stopped
+    networks:
+      - traefik
+    environment:
+      - REDIS_HOST=dragonfly
+      - REDIS_PORT=6379
+      - DB_TYPE=mysql
+      - DB_HOST=10.0.0.100
+      - DB_PORT=3306
+      - DB_USER=admin
+      - DB_PASS=${DB_PASS}
+      - DB_NAME=drupal
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.drupal.rule=Host("drupal.seekkey.eu.org")
+      - traefik.http.routers.drupal.entrypoints=websecure
+      - traefik.http.routers.drupal.tls.certresolver=cloudflare
+
+networks:
+  traefik:
+    external: true

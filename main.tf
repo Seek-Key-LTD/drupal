@@ -8,6 +8,9 @@ terraform {
       source  = "hashicorp/vault"
       version = "~> 3.0"
     }
+    null = {
+      source = "hashicorp/null"
+    }
   }
 }
 
@@ -17,26 +20,38 @@ provider "docker" {
 
 provider "vault" {
   address = "https://vault.git4ta.fun"
-  auth_login {
-    approle {
-      role_id   = var.vault_role_id
-      secret_id = var.vault_secret_id
-    }
-  }
+  skip_child_token = true
 }
 
 data "docker_network" "traefik" {
   name = "traefik"
 }
 
-data "vault_kv_secret_v2" "drupal" {
-  mount = "kv"
-  path  = "dev"
+resource "null_resource" "pre_deploy_check" {
+  triggers = {
+    always_run = timestamp()
+  }
+
+  provisioner "local-exec" {
+    command = <<PRE_EOF
+      # 重点是一条龙：若 settings.php 丢失，直接通过 sudo mc 从 S3 云端备份库中秒级秒拉恢复
+      if [ ! -f "/opt/drupal/sites/default/settings.php" ]; then
+        sudo mc --config-dir /home/ben/.mc cp backup/terraform-state/drupal/settings.php /opt/drupal/sites/default/settings.php
+        sudo chmod 644 /opt/drupal/sites/default/settings.php
+        echo "settings.php restored from S3 backup via mc."
+      fi
+PRE_EOF
+  }
 }
 
 resource "docker_container" "drupal" {
+  depends_on = [
+    null_resource.pre_deploy_check,
+    data.docker_network.traefik
+  ]
+
   name    = "drupal"
-  image   = "ghcr.io/seek-key-ltd/drupal-redis:latest"
+  image   = "localhost/drupal-redis:latest"
   restart = "unless-stopped"
 
   networks_advanced {
@@ -50,7 +65,7 @@ resource "docker_container" "drupal" {
     "DB_HOST=10.0.0.100",
     "DB_PORT=3306",
     "DB_USER=admin",
-    "DB_PASS=${data.vault_kv_secret_v2.drupal.data.password}",
+    "DB_PASS=CZTqVMU9oMercE#",
     "DB_NAME=drupal",
   ]
 
@@ -74,6 +89,12 @@ resource "docker_container" "drupal" {
     container_path = "/opt/drupal/themes"
     read_only      = true
   }
+  # 一条龙挂载：挂载 OAuth 2.0 密钥文件夹
+  volumes {
+    host_path      = "/opt/drupal/keys"
+    container_path = "/opt/drupal/keys"
+    read_only      = true
+  }
 
   labels {
     label = "traefik.enable"
@@ -81,7 +102,7 @@ resource "docker_container" "drupal" {
   }
   labels {
     label = "traefik.http.routers.drupal.rule"
-    value = "Host(drupal.seekkey.eu.org)"
+    value = "Host(\"drupal.seekkey.eu.org\")"
   }
   labels {
     label = "traefik.http.routers.drupal.entrypoints"
@@ -91,14 +112,4 @@ resource "docker_container" "drupal" {
     label = "traefik.http.routers.drupal.tls.certresolver"
     value = "cloudflare"
   }
-}
-
-variable "vault_role_id" {
-  type      = string
-  sensitive = true
-}
-
-variable "vault_secret_id" {
-  type      = string
-  sensitive = true
 }

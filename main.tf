@@ -86,8 +86,8 @@ resource "docker_container" "drupal" {
   }
   volumes {
     host_path      = "/opt/drupal/themes"
-    container_path = "/opt/drupal/themes"
-    read_only      = true
+    container_path = "/opt/drupal/web/themes/custom"
+    read_only      = false
   }
   # 一条龙挂载：挂载 OAuth 2.0 密钥文件夹
   volumes {

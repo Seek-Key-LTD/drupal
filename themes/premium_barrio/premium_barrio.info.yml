@@ -1,0 +1,11 @@
+name: 'Premium Barrio'
+type: theme
+description: 'A customized, modern, high-performance subtheme based on Bootstrap Barrio. Google Fonts are disabled.'
+core_version_requirement: '^10 || ^11'
+base theme: bootstrap_barrio
+
+libraries:
+  - premium_barrio/global-styling
+
+libraries-override:
+  bootstrap_barrio/google_fonts: false

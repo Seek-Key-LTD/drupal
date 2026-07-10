@@ -1,0 +1,132 @@
+/**
+ * Premium Barrio Theme - Substack Editorial Style.
+ */
+
+:root {
+  /* Substack 经典配色体系 */
+  --substack-bg: #ffffff;
+  --substack-text-main: #1a1a1a;
+  --substack-text-muted: #666666;
+  --substack-border: #e5e5e5;
+  --substack-accent: #ff5400; /* Substack 亮橙色 */
+  --substack-accent-hover: #e04a00;
+  
+  /* 衬线字体 (用于文章标题和排版) */
+  --font-serif: Georgia, Cambria, "Times New Roman", Times, "Noto Serif SC", serif;
+  /* 无衬线字体 (用于导航、UI和辅助文本) */
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+}
+
+body {
+  font-family: var(--font-sans);
+  color: var(--substack-text-main);
+  background-color: var(--substack-bg);
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.625;
+}
+
+/* 导航栏 - 极致扁平与极简线框 */
+.navbar {
+  background-color: var(--substack-bg) !important;
+  border-bottom: 1px solid var(--substack-border);
+  padding: 0.75rem 2rem;
+  box-shadow: none !important;
+}
+
+.navbar-brand {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: 1.4rem;
+  color: var(--substack-text-main) !important;
+  letter-spacing: -0.5px;
+}
+
+/* 阅读区域布局 - 完美限制单栏宽度 */
+.main-container, .container {
+  max-width: 1140px;
+}
+
+/* 文章详情页或主体阅读区 */
+article, .node--type-article {
+  max-width: 720px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+/* 排版美化 (衬线体标题) */
+h1, h2, h3, h4, .page-title {
+  font-family: var(--font-serif);
+  color: var(--substack-text-main);
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+h1.page-title {
+  font-size: 2.25rem;
+  line-height: 1.2;
+  margin-bottom: 1.5rem;
+}
+
+/* 文章正文 - 调大字号，增强可读性 */
+.node__content p, .field--name-body p {
+  font-family: var(--font-serif);
+  font-size: 1.125rem; /* ~18px */
+  line-height: 1.8;
+  margin-bottom: 1.5rem;
+  color: #292929;
+}
+
+/* Substack 风格的边栏和区块 */
+.block {
+  border: 1px solid var(--substack-border) !important;
+  box-shadow: none !important;
+  border-radius: 4px !important;
+  padding: 1.25rem;
+  margin-bottom: 1.5rem;
+  background-color: #fafafa;
+}
+
+.block-title {
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--substack-text-muted);
+  border-bottom: 1px solid var(--substack-border);
+  padding-bottom: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+/* 按钮 - 纯色极简圆角 */
+.btn {
+  font-family: var(--font-sans);
+  border-radius: 9999px; /* Substack 药丸形按钮 */
+  padding: 0.5rem 1.5rem;
+  font-weight: 500;
+  font-size: 0.9rem;
+  box-shadow: none !important;
+  transition: all 0.15s ease-in-out;
+}
+
+.btn-primary {
+  background-color: var(--substack-text-main);
+  border-color: var(--substack-text-main);
+  color: #ffffff;
+}
+
+.btn-primary:hover {
+  background-color: #333333;
+  border-color: #333333;
+}
+
+/* 订阅/高亮型按钮采用 Substack 橙色 */
+.btn-accent, .btn-subscribe {
+  background-color: var(--substack-accent);
+  border-color: var(--substack-accent);
+  color: #ffffff;
+}
+
+.btn-accent:hover {
+  background-color: var(--substack-accent-hover);
+  border-color: var(--substack-accent-hover);
+}

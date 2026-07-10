@@ -1,0 +1,42 @@
+{
+  "authors": {
+    "luna": "luna@git4ta.fun",
+    "azure": "azure@git4ta.fun",
+    "amber": "amber@git4ta.fun",
+    "argentite": "argentite@git4ta.fun",
+    "obsidian": "obsidian@git4ta.fun",
+    "jasper": "jasper@git4ta.fun",
+    "violet": "violet@git4ta.fun",
+    "moli": "moli@git4ta.fun",
+    "muxu": "muxu@git4ta.fun",
+    "zhuyu": "zhuyu@git4ta.fun",
+    "tumi": "tumi@git4ta.fun",
+    "meigui": "meigui@git4ta.fun",
+    "qiangwei": "qiangwei@git4ta.fun",
+    "agate": "agate@git4ta.fun",
+    "carbonado": "carbonado@git4ta.fun",
+    "quartz": "quartz@git4ta.fun",
+    "diamond": "diamond@git4ta.fun",
+    "faluo": "faluo@git4ta.fun",
+    "topaz": "topaz@git4ta.fun",
+    "leopard": "leopard@git4ta.fun",
+    "iron": "iron@git4ta.fun",
+    "onyx": "onyx@capitaltrain.cn",
+    "emerald": "emerald@git4ta.fun",
+    "houzhongxu": "houzhongxu@git4ta.fun",
+    "ben": "ben@git4ta.fun",
+    "ruby": "ruby@git4ta.fun"
+  },
+  "columns": {
+    "系统架构深度探索": ["violet", "ben", "ruby"],
+    "自动驾驶与 AIops": ["ruby", "violet", "leopard"],
+    "大本营自动化运维": ["onyx", "ben", "ruby"],
+    "长毛象中继健康度": ["luna", "azure", "amber"],
+    "数据库一致性审计": ["argentite", "obsidian", "iron"],
+    "飞书多维表格共创": ["jasper", "ben", "tumi"],
+    "时序与高频量化专栏": ["carbonado", "agate", "quartz"],
+    "前端 UI 与高级动效": ["moli", "meigui", "qiangwei"],
+    "知识空间与文档归档": ["muxu", "zhuyu", "diamond"],
+    "全栈开放 API 接入": ["emerald", "houzhongxu", "faluo", "topaz"]
+  }
+}

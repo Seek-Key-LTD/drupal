@@ -11,8 +11,9 @@ RUN composer require drupal/core-recommended:^11.4 \
     drupal/gin \
     drupal/gin_toolbar \
     drupal/bootstrap_barrio \
+    drupal/oidc:^2.3 \
     drush/drush \
     --update-with-all-dependencies --no-interaction
 
 # 安装依赖并编译支持 AVIF 的 GD 库、Redis、APCu 和 uploadprogress 扩展
-RUN apt-get update && apt-get install -y     gcc make libc-dev unzip     libavif-dev libwebp-dev libjpeg62-turbo-dev libpng-dev libfreetype6-dev     && docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp --with-avif     && docker-php-ext-install -j4 gd     && pecl install redis apcu uploadprogress     && docker-php-ext-enable redis apcu uploadprogress     && rm -rf /tmp/pear /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y     gcc make libc-dev unzip     libavif-dev libwebp-dev libjpeg62-turbo-dev libpng-dev libfreetype6-dev     libgmp-dev     && docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp --with-avif     && docker-php-ext-install -j4 gd gmp     && pecl install redis apcu uploadprogress     && docker-php-ext-enable redis apcu uploadprogress     && rm -rf /tmp/pear /var/lib/apt/lists/*

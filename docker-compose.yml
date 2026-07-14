@@ -1,6 +1,6 @@
 services:
   drupal:
-    image: ghcr.io/seek-key-ltd/drupal-redis:latest
+    image: ghcr.io/seek-key-ltd/drupal/drupal-redis:latest
     container_name: drupal
     restart: unless-stopped
     networks:
@@ -9,16 +9,21 @@ services:
       - REDIS_HOST=dragonfly
       - REDIS_PORT=6379
       - DB_TYPE=mysql
-      - DB_HOST=10.0.0.100
-      - DB_PORT=3306
+      - DB_HOST=proxysql
+      - DB_PORT=6033
       - DB_USER=admin
-      - DB_PASS=${DB_PASS}
+      - DB_PASS=CZTqVMU9oMercE#
       - DB_NAME=drupal
     labels:
       - traefik.enable=true
       - traefik.http.routers.drupal.rule=Host("drupal.seekkey.eu.org")
       - traefik.http.routers.drupal.entrypoints=websecure
       - traefik.http.routers.drupal.tls.certresolver=cloudflare
+    volumes:
+      - /opt/drupal/modules:/opt/drupal/modules:ro
+      - /opt/drupal/profiles:/opt/drupal/profiles:ro
+      - /opt/drupal/sites:/opt/drupal/web/sites
+      - /opt/drupal/themes:/opt/drupal/themes:ro
 
 networks:
   traefik:

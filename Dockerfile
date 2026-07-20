@@ -1,5 +1,9 @@
 FROM drupal:latest
 
+# 将 Apache 端口从 80 改为 8081（避免与 Traefik 冲突）
+RUN sed -i 's/Listen 80/Listen 8081/' /etc/apache2/ports.conf \
+    && sed -i 's/:80>/:8081>/' /etc/apache2/sites-enabled/000-default.conf
+
 # 先装 GMP（oidc 依赖），再跑 composer（需要用 GMP），最后装其余扩展
 RUN apt-get update && apt-get install -y libgmp-dev \
     && docker-php-ext-install gmp \

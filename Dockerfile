@@ -32,3 +32,8 @@ RUN apt-get update && apt-get install -y     gcc make libc-dev unzip \
     && pecl install redis apcu uploadprogress \
     && docker-php-ext-enable redis apcu uploadprogress \
     && rm -rf /tmp/pear /var/lib/apt/lists/*
+
+# 复制自定义启动脚本（自动生成 settings.php 等）
+COPY docker-entrypoint.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+ENTRYPOINT ["docker-entrypoint.sh"]
